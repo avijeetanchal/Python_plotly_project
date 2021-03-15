@@ -7,7 +7,7 @@ from datetime import timedelta
 import numpy as np
 from dateutil.relativedelta import *
 from datetime import datetime
-import dash_auth
+# import dash_auth
 
 USERNAME_PASSWORD_PAIRS = [['Batman','Begins']]
 
@@ -74,9 +74,9 @@ def fig1(df2):
     return fig_data
 
 app = dash.Dash()
-auth = dash_auth.BasicAuth(app,USERNAME_PASSWORD_PAIRS)
+# auth = dash_auth.BasicAuth(app,USERNAME_PASSWORD_PAIRS)
 
-server = app.server ## understand dash that we are deploying this 
+# server = app.server ## understand dash that we are deploying this 
 
 app.layout = html.Div([
     html.Div([
