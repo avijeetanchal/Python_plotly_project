@@ -1,5 +1,3 @@
-import mysql.connector
-conn= mysql.connector.connect(host='94.237.77.73',database='REPORTING-insytio',user='ruser',password='Loyalytics@1234%')
 import os
 import pandas as pd
 import datetime as dt
@@ -12,24 +10,15 @@ from datetime import datetime
 USERNAME_PASSWORD_PAIRS = [['Batman','Begins']]
 
 print('reading from my sql database')
-df1 = pd.read_sql("""select CDID,
-sum(billAmt)/count(DISTINCT transactionId) atv,
-datediff(now(),max(transactionDate)) recency,
-count(DISTINCT transactionId) trxns,
-cast(max(transactionDate) as date) last_shopped
-from transaction_tables tt
-where client ='alghurair'
-and cdid is not null
-and datediff(now(),transactionDate)<=365
-and billAmt >0
-group by CDID""",conn)
+df1 = pd.read_csv('raw.csv')
 print('data loaded')
+# df1.to_csv(r'C:\Users\Avijeet\Desktop\study\udemy\plotly dash\projects\rfv-graph\virtual\raw.csv',index=False)
 df1['last_shopped'] = pd.to_datetime(df1['last_shopped'])
 # print(df1.shape)
 # print(df1.CDID.nunique())
-
-# splurgers, frequentist, lapsing, moderates
-
+#
+# # splurgers, frequentist, lapsing, moderates
+#
 df1.loc[df1['trxns']>=4,'cluster']='Frequentist'
 df1.loc[df1['atv']>=420,'cluster']='Splurgers'
 df1.loc[df1['recency']>=180,'cluster']='Lapsing'
@@ -76,7 +65,7 @@ def fig1(df2):
 app = dash.Dash()
 # auth = dash_auth.BasicAuth(app,USERNAME_PASSWORD_PAIRS)
 
-# server = app.server ## understand dash that we are deploying this 
+# server = app.server ## understand dash that we are deploying this
 
 app.layout = html.Div([
     html.Div([
