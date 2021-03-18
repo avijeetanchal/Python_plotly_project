@@ -65,7 +65,7 @@ def fig1(df2):
 app = dash.Dash()
 # auth = dash_auth.BasicAuth(app,USERNAME_PASSWORD_PAIRS)
 
-# server = app.server ## understand dash that we are deploying this
+server = app.server ## understand dash that we are deploying this
 
 app.layout = html.Div([
     html.Div([
